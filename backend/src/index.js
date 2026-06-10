@@ -1,16 +1,17 @@
 import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
 import { app } from "./app.js";
+import { connectDB } from "./db/index.js";
 
-// Initialize environment variables explicitly
-dotenv.config({
-  path: "./.env",
-});
+const PORT = process.env.PORT || 8000;
 
-const PORT = process.env.PORT || 3000;
-
-// Future: Database Connection Logic will go here.
-// Once DB connects successfully, we start the server.
-
-app.listen(PORT, () => {
-  console.log(`⚙️  Server is running at port : ${PORT}`);
-});
+// Connect to Database, then start server
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`⚙️  Server is running at port : ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("❌ PostgreSQL connection failed !!! ", err);
+  });
