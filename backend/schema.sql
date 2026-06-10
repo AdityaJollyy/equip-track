@@ -1,3 +1,12 @@
+-- 0. Admins Table
+CREATE TABLE IF NOT EXISTS admins (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- 1. Employees Table
 CREATE TABLE IF NOT EXISTS employees (
     id SERIAL PRIMARY KEY,
@@ -40,7 +49,7 @@ CREATE TABLE IF NOT EXISTS assignments (
     id SERIAL PRIMARY KEY,
     asset_id INTEGER REFERENCES assets(id) ON DELETE CASCADE,
     employee_id INTEGER REFERENCES employees(id) ON DELETE SET NULL,
-    assigned_by INTEGER,
+    assigned_by INTEGER REFERENCES admins(id) ON DELETE SET NULL, -- References Admin now
     assignment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     return_date TIMESTAMP,
     device_condition VARCHAR(100),

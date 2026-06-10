@@ -22,13 +22,32 @@ app.use(express.static("public"));
 // Securely parse cookies
 app.use(cookieParser());
 
-// Example Health Check Route using our standard response
-import { ApiResponse } from "./utils/ApiResponse.js";
+// Import Routers
+import authRouter from "./routes/auth.routes.js";
 
+// Mount Routers
+app.use("/api/v1/auth", authRouter);
+
+// Base API Health Check
+import { ApiResponse } from "./utils/ApiResponse.js";
 app.get("/api/v1/health", (req, res) => {
   return res
     .status(200)
-    .json(new ApiResponse(200, null, "EquipTrack API is running smoothly"));
+    .json(new ApiResponse(200, null, "AssetTrack Pro API is running smoothly"));
+});
+
+// Centralized error fallback middleware to structure unhandled framework errors into uniform ApiErrors
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+    errors: err.errors || [],
+    stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+  });
 });
 
 export { app };
