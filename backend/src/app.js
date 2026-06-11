@@ -27,11 +27,13 @@ app.use(cookieParser());
 import authRouter from "./routes/auth.routes.js";
 import employeeRouter from "./routes/employee.routes.js";
 import assetRouter from "./routes/asset.routes.js";
+import assignmentRouter from "./routes/assignment.routes.js";
 
 // Mount Routers
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/employees", employeeRouter);
 app.use("/api/v1/assets", assetRouter);
+app.use("/api/v1/assignments", assignmentRouter);
 
 // Base API Health Check
 import { ApiResponse } from "./utils/ApiResponse.js";
