@@ -24,9 +24,11 @@ app.use(cookieParser());
 
 // Import Routers
 import authRouter from "./routes/auth.routes.js";
+import employeeRouter from "./routes/employee.routes.js";
 
 // Mount Routers
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/employees", employeeRouter);
 
 // Base API Health Check
 import { ApiResponse } from "./utils/ApiResponse.js";
