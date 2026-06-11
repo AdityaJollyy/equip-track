@@ -5,9 +5,10 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 // Enable CORS with specific origin and credentials
+const corsOrigin = process.env.CORS_ORIGIN;
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: corsOrigin,
     credentials: true,
   })
 );
