@@ -3,6 +3,7 @@ import { ProtectedRoute } from "./components/layout/ProtectedRoute";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
 import Login from "./pages/Login";
 import Employees from "./pages/Employees";
+import Assets from "./pages/Assets"; // <-- Add this import
 
 const DashboardPlaceholder = () => (
   <div className="dark:text-zinc-50">
@@ -19,11 +20,11 @@ function App() {
       <Route path="/login" element={<Login />} />
 
       <Route element={<ProtectedRoute />}>
-        {/* DashboardLayout wraps all protected pages */}
         <Route element={<DashboardLayout />}>
           <Route path="/" element={<DashboardPlaceholder />} />
           <Route path="/employees" element={<Employees />} />
-          {/* Future Routes: /assets, /assignments */}
+          <Route path="/assets" element={<Assets />} />{" "}
+          {/* <-- Add this route */}
         </Route>
       </Route>
     </Routes>
